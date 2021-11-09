@@ -17,10 +17,11 @@ public class TemaModel {
 	private long idTema;
 	
 	@NotBlank
+	@Size(min = 5, max = 100)
 	private String tipo;
 	
 	@NotBlank
-	@Size(min = 10, max=255)
+	@Size(min = 5, max = 500)
 	private String descricao;
 	
 	@NotBlank
