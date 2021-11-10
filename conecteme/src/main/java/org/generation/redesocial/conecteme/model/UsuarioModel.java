@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -19,6 +20,7 @@ public class UsuarioModel {
 	private String nome;
 	
 	@NotBlank(message = "O email não pode ser vazio")
+	@Email
 	private String email;
 	
 	@NotBlank(message = "A senha não pode ser vazia")
