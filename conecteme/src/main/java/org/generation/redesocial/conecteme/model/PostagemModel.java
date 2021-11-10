@@ -6,11 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_postagens")
@@ -34,6 +37,10 @@ public class PostagemModel {
 	@NotBlank
 	private String foto;
 
+	@ManyToOne
+	@JsonIgnoreProperties("tb_postagens")
+	private TemaModel tipo;
+	
 	public long getIdPostagem() {
 		return idPostagem;
 	}
