@@ -33,10 +33,10 @@ public class TemaModel {
 	@NotBlank
 	private String foto;
 	
-	@OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("tipo")
-	private List<PostagemModel> tb_postagens;
-	
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("tema")
+	private List<PostagemModel> postagens;
+
 	public long getIdTema() {
 		return idTema;
 	}
@@ -69,6 +69,12 @@ public class TemaModel {
 		this.foto = foto;
 	}
 
+	public List<PostagemModel> getPostagens() {
+		return postagens;
+	}
 
+	public void setPostagens(List<PostagemModel> postagens) {
+		this.postagens = postagens;
+	}
 
 }

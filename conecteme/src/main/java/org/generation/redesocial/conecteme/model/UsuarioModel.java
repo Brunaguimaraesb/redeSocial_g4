@@ -1,12 +1,18 @@
 package org.generation.redesocial.conecteme.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -16,16 +22,19 @@ public class UsuarioModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idUsuario;
 	
-	@NotBlank(message = "O nome não pode ser vazio")
+	@NotBlank
 	private String nome;
 	
-	@NotBlank(message = "O email não pode ser vazio")
+	@NotBlank
 	@Email
 	private String email;
 	
-	@NotBlank(message = "A senha não pode ser vazia")
+	@NotBlank
 	private String senha;
 	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
+	private List<PostagemModel> minhasPostagens;
 
 	public long getIdUsuario() {
 		return idUsuario;
@@ -59,4 +68,11 @@ public class UsuarioModel {
 		this.senha = senha;
 	}
 	
+	public List<PostagemModel> getMinhasPostagens() {
+		return minhasPostagens;
+	}
+
+	public void setMinhasPostagens(List<PostagemModel> minhasPostagens) {
+		this.minhasPostagens = minhasPostagens;
+	}
 }
