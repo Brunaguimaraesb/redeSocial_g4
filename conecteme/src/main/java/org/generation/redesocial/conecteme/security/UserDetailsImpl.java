@@ -1,7 +1,6 @@
 package org.generation.redesocial.conecteme.security;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.generation.redesocial.conecteme.model.UsuarioModel;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +14,6 @@ public class UserDetailsImpl implements UserDetails{
 	private String username;
 	
 	private String password;
-	private List<GrantedAuthority> autorities;
 	
 	public UserDetailsImpl(UsuarioModel user) {
 		this.username = user.getEmail();
@@ -29,7 +27,7 @@ public class UserDetailsImpl implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return autorities;
+		return null;
 	}
 
 	@Override
