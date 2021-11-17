@@ -1,22 +1,20 @@
 package org.generation.redesocial.conecteme.dtos;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class UserLoginDTO {
 	
-	private String nome;
-	
+	@NotBlank(message = "Inserir 'email' valido")
+	@Email
 	private String email;
 	
+	@NotBlank(message = "Inserir 'senha' de 4 a 15 caracteres")
+	@Size(min = 3, max = 15)
 	private String senha;
 	
 	private String token;
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 	public String getEmail() {
 		return email;
@@ -42,5 +40,4 @@ public class UserLoginDTO {
 		this.token = token;
 	}
 	
-
 }

@@ -24,7 +24,6 @@ public class UsuarioModel {
 	private long idUsuario;
 	
 	@NotBlank
-	@Size(min = 2, max = 100)
 	private String nome;
 	
 	@NotBlank
@@ -32,7 +31,10 @@ public class UsuarioModel {
 	private String email;
 	
 	@NotBlank
-	@Size(min = 5, max = 100)
+	private String token;
+	
+	@NotBlank
+	@Size(min = 3, max = 15)
 	private String senha;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
@@ -42,7 +44,7 @@ public class UsuarioModel {
 	public long getIdUsuario() {
 		return idUsuario;
 	}
-	
+
 	public void setIdUsuario(long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
@@ -63,6 +65,14 @@ public class UsuarioModel {
 		this.email = email;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	public String getSenha() {
 		return senha;
 	}
@@ -70,7 +80,7 @@ public class UsuarioModel {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
 	public List<PostagemModel> getMinhasPostagens() {
 		return minhasPostagens;
 	}
@@ -78,4 +88,5 @@ public class UsuarioModel {
 	public void setMinhasPostagens(List<PostagemModel> minhasPostagens) {
 		this.minhasPostagens = minhasPostagens;
 	}
+
 }
