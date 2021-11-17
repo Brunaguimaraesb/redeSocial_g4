@@ -39,8 +39,6 @@ public class TemaController {
 	public ResponseEntity<List<TemaModel>> GetByTipo(@PathVariable String tipo){
 		return ResponseEntity.ok(repository.findAllByTipoContainingIgnoreCase(tipo));
 
-	}
-
 	@PostMapping
 	public ResponseEntity<TemaModel> post (@RequestBody TemaModel tema) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
@@ -55,4 +53,6 @@ public class TemaController {
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
 	}
+
 }
+
