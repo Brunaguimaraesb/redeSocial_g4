@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/postagem")
 @CrossOrigin("*")
 public class PostagemController {
+
 	
 	@Autowired
 	private PostagemRepository repository;
@@ -29,31 +30,41 @@ public class PostagemController {
 	public ResponseEntity<List<PostagemModel>> GetAll(){
 		return ResponseEntity.ok(repository.findAll());
 	}
+
 	
+
 	@GetMapping("/{idPostagem}")
 	public ResponseEntity<PostagemModel> GetById(@PathVariable long idPostagem){
 		return repository.findById(idPostagem).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
+
 	
+
 	@GetMapping("/titulo/{titulo}")
 	public ResponseEntity<List<PostagemModel>> GetByTitulo(@PathVariable String titulo){
 		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
 	}
+
 	
 	
-	
+
 	@PostMapping
 	public ResponseEntity<PostagemModel> post(@RequestBody PostagemModel titulo){
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(titulo));
 	}
 	
+
 	@PutMapping
 	public ResponseEntity<PostagemModel> put(@RequestBody PostagemModel titulo){
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(titulo));
 	}
+
 	
+
 	@DeleteMapping("/{idPostagem}")
 	public void delete(@PathVariable long idPostagem) {
 		repository.deleteById(idPostagem);
 	}
+
 }
+
