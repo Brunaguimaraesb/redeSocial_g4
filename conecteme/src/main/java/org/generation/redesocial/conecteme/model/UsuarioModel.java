@@ -34,7 +34,7 @@ public class UsuarioModel {
 	private String token;
 	
 	@NotBlank
-	@Size(min = 3, max = 15)
+	@Size(min = 3, max = 100)
 	private String senha;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)

@@ -11,7 +11,7 @@ public class UserLoginDTO {
 	private String email;
 	
 	@NotBlank(message = "Inserir 'senha' de 4 a 15 caracteres")
-	@Size(min = 3, max = 15)
+	@Size(min = 3, max = 100)
 	private String senha;
 	
 	private String token;
