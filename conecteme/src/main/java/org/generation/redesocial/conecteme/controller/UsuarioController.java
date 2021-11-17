@@ -29,8 +29,7 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository repository;
-	
-	
+
 	@GetMapping
 	public ResponseEntity<List<UsuarioModel>> GetAll() {
 		return ResponseEntity.ok(repository.findAll());
@@ -46,11 +45,13 @@ public class UsuarioController {
 	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<UsuarioModel>> GetByNome(@PathVariable String nome) {
 		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
+
 	}
 
 	@PostMapping
 	public ResponseEntity<UsuarioModel> post(@RequestBody UsuarioModel usuario) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+
 	}
 
 	@PutMapping
@@ -62,20 +63,23 @@ public class UsuarioController {
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
+
 	}
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@PostMapping("/logar")
-	public ResponseEntity<UserLoginDTO> Autentication(@Valid @RequestBody Optional<UserLoginDTO> user){
+	public ResponseEntity<UserLoginDTO> Autentication(@Valid @RequestBody Optional<UserLoginDTO> user) {
 		return userService.Logar(user).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-	} 
-	
-	@PostMapping("/cadastrar")
-	public ResponseEntity<UsuarioModel> Post(@Valid @RequestBody UsuarioModel usuario){
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(userService.CadastrarUsuario(usuario));
+
 	}
+
+	@PostMapping("/cadastrar")
+	public ResponseEntity<UsuarioModel> Post(@Valid @RequestBody UsuarioModel usuario) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(userService.CadastrarUsuario(usuario));
+
+	}
+
 }
