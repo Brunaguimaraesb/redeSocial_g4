@@ -50,6 +50,30 @@ public class SwaggerConfig {
 			.build();
 		
 	}
+	private static Contact contact() {
+		return new Contact("Alyson Campos",
+				"https://github.com/alysoncampos",
+				"alyson.siqueiracampos@gmail.com");
+	}
 	
+	private static List<Response> responseMessage(){
+		return new ArrayList<Response>() {
+			private static final long serialVersionUID = 1L;
+			{
+				add(new ResponseBuilder().code("200")
+				.description("Sucesso!").build());
+				add(new ResponseBuilder().code("201")
+						.description("Criado!").build());
+				add(new ResponseBuilder().code("400")
+						.description("Erro na Requisição!").build());
+				add(new ResponseBuilder().code("403")
+						.description("Proibido!").build());
+				add(new ResponseBuilder().code("404")
+						.description("Não Encontrado!").build());
+				add(new ResponseBuilder().code("500")
+						.description("Erro!").build());
+			}
+		};
+	}
 
 }
