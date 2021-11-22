@@ -1,5 +1,6 @@
 package org.generation.redesocial.conecteme.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,42 +16,42 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "tb_tema")
+@Table(name = "tb_temas")
 public class TemaModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idTema;
+	private long id;
 	
-	@NotBlank
-	@Size(min = 5, max = 100)
-	private String tipo;
+	@NotBlank(message = "O atributo Tema é obrigatório")
+	@Size(min = 3, max = 100, message = "O atributo título deve ter no mínimo 3 e no máximo 100 caracteres")
+	private String tema;
 	
-	@NotBlank
-	@Size(min = 5, max = 500)
+	@NotBlank(message = "O atributo Descrição deve ser obrigatório")
+	@Size(min = 5, max = 1000, message = "O atributo título deve ter no mínimo 5 e no máximo 1000 caracteres")
 	private String descricao;
 	
-	@NotBlank
 	private String foto;
 	
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("tema")
-	private List<PostagemModel> postagens;
+	private List<PostagemModel> postagem = new ArrayList<>();
 
-	public long getIdTema() {
-		return idTema;
+	
+	public long getId() {
+		return id;
 	}
 
-	public void setIdTema(long idTema) {
-		this.idTema = idTema;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getTema() {
+		return tema;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTema(String tema) {
+		this.tema = tema;
 	}
 
 	public String getDescricao() {
@@ -69,12 +70,12 @@ public class TemaModel {
 		this.foto = foto;
 	}
 
-	public List<PostagemModel> getPostagens() {
-		return postagens;
+	public List<PostagemModel> getPostagem() {
+		return postagem;
 	}
 
-	public void setPostagens(List<PostagemModel> postagens) {
-		this.postagens = postagens;
+	public void setPostagem(List<PostagemModel> postagem) {
+		this.postagem = postagem;
 	}
-
+	
 }

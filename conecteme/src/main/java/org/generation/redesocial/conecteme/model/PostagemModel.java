@@ -22,47 +22,37 @@ public class PostagemModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idPostagem;
+	private long id;
 
+	@NotBlank(message = "O atributo título é obrigatório!")
+	@Size(min = 5, max = 100, message = "O atributo título deve ter no mínimo 5 e no máximo 100 caracteres")
+	private String titulo;
+	
+	@NotBlank(message = "O atributo texto é obrigatório!")
+	@Size(min = 5, max = 1000, message = "O atributo textoo deve ter no mínimo 5 e no máximo 1000 caracteres")
+	private String texto;
+	
+	private String foto;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 
-	@NotBlank
-	@Size(min = 5, max = 100)
-	private String titulo;
-
-	@NotBlank
-	@Size(min = 5, max = 500)
-	private String descricao;
-
-	@NotBlank
-	private String foto;
-
 	@ManyToOne
-	@JsonIgnoreProperties("postagens")
+	@JsonIgnoreProperties("postagem")
 	@JoinColumn(name = "fk_tema")
 	private TemaModel tema;
 	
 	@ManyToOne
-	@JsonIgnoreProperties("minhasPostagens")
+	@JsonIgnoreProperties("postagem")
 	@JoinColumn(name = "fk_usuario")
 	private UsuarioModel usuario;
-	
 
-	public long getIdPostagem() {
-		return idPostagem;
+	public long getId() {
+		return id;
 	}
 
-	public void setIdPostagem(long idPostagem) {
-		this.idPostagem = idPostagem;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getTitulo() {
@@ -73,12 +63,12 @@ public class PostagemModel {
 		this.titulo = titulo;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getTexto() {
+		return texto;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 	public String getFoto() {
@@ -88,7 +78,15 @@ public class PostagemModel {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
 	public TemaModel getTema() {
 		return tema;
 	}
