@@ -63,15 +63,15 @@ public class SwaggerConfig {
 				add(new ResponseBuilder().code("200")
 				.description("Sucesso!").build());
 				add(new ResponseBuilder().code("201")
-						.description("Criado!").build());
+				.description("Criado!").build());
 				add(new ResponseBuilder().code("400")
-						.description("Erro na Requisição!").build());
+				.description("Erro na Requisição!").build());
 				add(new ResponseBuilder().code("403")
-						.description("Proibido!").build());
+				.description("Proibido!").build());
 				add(new ResponseBuilder().code("404")
-						.description("Não Encontrado!").build());
+			    .description("Não Encontrado!").build());
 				add(new ResponseBuilder().code("500")
-						.description("Erro!").build());
+				.description("Erro!").build());
 			}
 		};
 	}
