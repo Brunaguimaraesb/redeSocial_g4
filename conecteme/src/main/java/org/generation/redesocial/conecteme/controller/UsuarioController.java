@@ -20,66 +20,74 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioRepository repository;
+	private UserService usuarioService;
+		
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
-	@GetMapping
-	public ResponseEntity<List<UsuarioModel>> GetAll() {
-		return ResponseEntity.ok(repository.findAll());
+	@GetMapping("/all")
+	public ResponseEntity<List<UsuarioModel>> getAll() {
+		return ResponseEntity.ok(usuarioRepository.findAll());
 
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UsuarioModel> GetById(@PathVariable long id) {
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<UsuarioModel> getById(@PathVariable long id) {
+		return usuarioRepository.findById(id)
+				.map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
 
 	}
 
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<UsuarioModel>> GetByNome(@PathVariable String nome) {
-		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
+	public ResponseEntity<UsuarioModel> getByNome (@PathVariable String nome) {
+		return usuarioRepository.findByNome(nome)
+				.map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
 
 	}
-
-	@PostMapping
-	public ResponseEntity<UsuarioModel> post(@RequestBody UsuarioModel usuario) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
-
-	}
-
-	@PutMapping
-	public ResponseEntity<UsuarioModel> put(@RequestBody UsuarioModel usuario) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
-
-	}
-
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
-
-	}
-
-	@Autowired
-	private UserService userService;
 
 	@PostMapping("/logar")
-	public ResponseEntity<UserLoginDTO> Autentication(@Valid @RequestBody Optional<UserLoginDTO> user) {
-		return userService.Logar(user).map(resp -> ResponseEntity.ok(resp))
+	public ResponseEntity<UserLoginDTO> autentication(@Valid @RequestBody Optional<UserLoginDTO> user) {
+		return usuarioService.logarUsuario(user)
+				.map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 
 	}
 
 	@PostMapping("/cadastrar")
-	public ResponseEntity<UsuarioModel> Post(@Valid @RequestBody UsuarioModel usuario) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(userService.CadastrarUsuario(usuario));
+	public ResponseEntity<UsuarioModel> postUsuario(@Valid @RequestBody UsuarioModel usuario) {
+		return usuarioService.cadastrarUsuario(usuario)
+				.map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
+				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 
+	}
+	
+	@PutMapping("/atualizar")
+	public ResponseEntity<UsuarioModel> putUsuario(@Valid @RequestBody UsuarioModel usuario){
+		return usuarioService.atualizarUsuario(usuario)
+				.map(resp -> ResponseEntity.status(HttpStatus.OK).body(resp))
+				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+
+	}
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable long id) {
+		 Optional<UsuarioModel> post = usuarioRepository.findById(id);
+	        if(post.isEmpty())
+		        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+	        usuarioRepository.deleteById(id);
 	}
 
 }
