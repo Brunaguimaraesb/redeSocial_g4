@@ -41,6 +41,7 @@ public class SwaggerConfig {
 	public static ApiInfo metadata() {
 		
 		return new ApiInfoBuilder()
+
 			.title("API - Conectme Social")
 			.description("Projeto API Spring - Conecte.me")
 			.version("1.0.0")
