@@ -39,11 +39,13 @@ public class UsuarioModel {
 	@Email(message = "O atributo usuário deve ser um email válido")
 	private String usuario;
 	
-	private String foto;
-	
 	@NotBlank(message = "O atributo Senha é obrigatório")
 	@Size(min = 8, message = "A senha deve ser no mínimo 8 caracteres.")
 	private String senha;
+	
+	private String foto;
+	
+	private String tipo;
 	
 	@Column(name = "dt_nascimento")
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -52,8 +54,21 @@ public class UsuarioModel {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<PostagemModel> postagem = new ArrayList<>();
-
 	
+	public UsuarioModel (long id, String nome, String usuario, String senha, String tipo, LocalDate dataNascimento, String foto) {
+		
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.tipo = tipo;
+		this.dataNascimento = dataNascimento;
+		this.foto = foto;
+		
+	}
+	
+	public UsuarioModel() {}
+
 	public long getId() {
 		return id;
 	}
@@ -78,6 +93,14 @@ public class UsuarioModel {
 		this.usuario = usuario;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public String getFoto() {
 		return foto;
 	}
@@ -86,12 +109,12 @@ public class UsuarioModel {
 		this.foto = foto;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public LocalDate getDataNascimento() {
@@ -109,5 +132,5 @@ public class UsuarioModel {
 	public void setPostagem(List<PostagemModel> postagem) {
 		this.postagem = postagem;
 	}
-
+	
 }

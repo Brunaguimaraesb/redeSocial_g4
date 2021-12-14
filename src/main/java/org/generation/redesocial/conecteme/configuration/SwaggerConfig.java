@@ -42,8 +42,8 @@ public class SwaggerConfig {
 		
 		return new ApiInfoBuilder()
 
-			.title("API - Conectme Social")
-			.description("Projeto API Spring - Conecte.me")
+			.title("API - RECONECT")
+			.description("Projeto API Spring - Reconect")
 			.version("1.0.0")
 			.license("Apache License Version 2.0")
 			.licenseUrl("https://github.com/alysoncampos")
